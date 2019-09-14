@@ -12,6 +12,8 @@ class MainController extends AbstractController
 
         $latest_albums = $albumRepository->findBy([], ['id' => "DESC"], 10);
 
+//        dd($latest_albums);
+
         return $this->render('index.html.twig', [
             'latest_albums' => $latest_albums
         ]);

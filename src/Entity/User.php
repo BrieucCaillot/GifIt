@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +34,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Album", mappedBy="author")
+     */
+    private $albums;
+
+    public function __construct()
+    {
+        $this->gifs = new ArrayCollection();
+    }
 
     public function getEmail(): ?string
     {
@@ -92,6 +104,24 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Album[]
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
+    }
+
+    public function addAlbum(Gif $gif): self
+    {
+        if (!$this->albums->contains($gif)) {
+            $this->albums[] = $gif;
+            $gif->setAlbum($this);
+        }
 
         return $this;
     }

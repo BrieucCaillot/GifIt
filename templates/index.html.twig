@@ -11,16 +11,27 @@
             </div>
             <div class="card-deck">
                 {% for album in latest_albums %}
-                    <div class="col-sm-4">
-                        <a href="{{ path('app_album_show', {'album': album.id}) }}"
-                           class="card">
+                    <div class="col-sm-4 mb-4">
+                        <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">{{ album.title }}</h5>
-                                <p class="card-text">{{ album.gifs|length }} GIFS</p>
-                                <p class="card-text"><small class="text-muted">created {{ album.createdAt|date('d/m/Y - h:m:s') }}</small></p>
-                                <p class="card-text"><small class="text-muted">author </small></p>
+                                <a class="h5 card-title text-primary"
+                                   href="{{ path('app_album_show', {'album': album.id}) }}">
+                                    {{ album.title }}
+                                </a>
+                                <p class="card-text mt-2 mb-2">{{ album.gifs|length }} GIFS</p>
+                                <p class="card-text">
+                                    <small class="text-muted">created {{ album.createdAt|date('d/m/Y - h:m:s') }}</small>
+                                </p>
+                                <p class="card-text">
+                                    <a href="{{ path('app_user_index', {'user': album.author.id }) }}">
+                                        <small class="text-muted">
+                                            author
+                                            @{{ album.author.username }}
+                                        </small>
+                                    </a>
+                                </p>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>

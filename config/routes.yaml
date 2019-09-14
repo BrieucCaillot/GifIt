@@ -18,6 +18,12 @@ app_album_update:
     requirements:
         album: '\d+'
 
+app_album_delete:
+    path: /album/{album}/delete
+    controller: App\Controller\AlbumController::delete
+    requirements:
+        album: '\d+'
+
 app_album_create:
     path: /album/create
     controller: App\Controller\AlbumController::create

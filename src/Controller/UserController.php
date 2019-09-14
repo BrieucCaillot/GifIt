@@ -6,7 +6,6 @@ use App\Repository\AlbumRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
@@ -16,13 +15,8 @@ class UserController extends AbstractController
 
         $user = $userRepository->find($userId);
 
-        $user_albums = $albumRepository->findBy([
-            'user_id' => $userId
-        ], ['id' => "DESC"], 10);
-
         return $this->render('user/index.html.twig', [
-            'user' => $user,
-            'user_albums' => $user_albums,
+            'user' => $user
         ]);
     }
 }

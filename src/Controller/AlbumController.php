@@ -32,8 +32,7 @@ class AlbumController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $userId = $this->getUser()->getId();
-            $album->setUserId($userId);
+            $album->setAuthor($this->getUser());
 
             $entityManager->persist($album);
             $entityManager->flush();
@@ -48,7 +47,7 @@ class AlbumController extends AbstractController
 
     public function update(Album $album, Request $request, EntityManagerInterface $entityManager): Response
     {
-        if ($album->getUserId() !== $this->getUser()->getId()) {
+        if ($album->getAuthor() !== $this->getUser()) {
             return new Response('', Response::HTTP_FORBIDDEN);
         }
 
@@ -63,5 +62,15 @@ class AlbumController extends AbstractController
         return $this->render('album/update.html.twig', [
             'albumUpdateForm' => $form->createView(),
         ]);
+    }
+
+    public function delete(Album $album, EntityManagerInterface $entityManager, Request $request): Response {
+        $album_id = $request->attributes->get('album');
+
+        $entityManager->find(Album::class, $album_id);
+        $entityManager->remove($album);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('index');
     }
 }

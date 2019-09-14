@@ -17,13 +17,15 @@
                 <h1 class="text-white">{{ album.title }}</h1>
             </div>
             {% if app.user %}
-                {% if app.user.id == album.userId %}
+                {% if app.user.id == album.author.id %}
                     <div class="col text-right">
                         <a href="{{ path('app_album_gif_add', {'album': album.id}) }}"
                            class="btn btn-primary">Add
-                            GIF</a>
+                            GIF ➕</a>
                         <a href="{{ path('app_album_update', {'album': album.id}) }}"
-                           class="btn btn-info">Edit</a>
+                           class="btn btn-info">Edit ✎</a>
+                        <a href="{{ path('app_album_delete', {'album': album.id}) }}"
+                           class="btn btn-danger">Delete ❌</a>
                     </div>
                 {% endif %}
             {% endif %}

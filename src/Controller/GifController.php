@@ -14,7 +14,9 @@ class GifController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $gif = new Gif();
-        $form = $this->createForm(GifAddForm::class, $gif);
+        $form = $this->createForm(GifAddForm::class, $gif, [
+            'user' => $this->getUser()
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

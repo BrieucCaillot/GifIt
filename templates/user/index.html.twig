@@ -2,26 +2,29 @@
 
 {% block body %}
     <div class="container">
-        {% if user_albums|length > 0 %}
-            <div class="row">
-                <div class="col text-center">
-                    {% if app.user.username == user.username %}
-                        <h1 class="text-white mt-4 mb-4">My albums</h1>
-                    {% else %}
-                        <h1 class="text-white mt-4 mb-4">{{ user.username }} - Albums</h1>
-                    {% endif %}
-                </div>
+        <div class="row">
+            <div class="col text-center">
+                {% if app.user.id == user.id %}
+                    <h1 class="text-white mt-4 mb-4">My albums</h1>
+                {% else %}
+                    <h1 class="text-white mt-4 mb-4">{{ user.username }}'s albums</h1>
+                {% endif %}
             </div>
+        </div>
+        {% if user.albums|length > 0 %}
             <div class="card-deck">
-                {% for album in user_albums %}
+                {% for album in user.albums %}
                     <div class="col-sm-4">
                         <a href="{{ path('app_album_show', {'album': album.id}) }}"
                            class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-primary">{{ album.title }}</h5>
                                 <p class="card-text">gif length</p>
-                                <p class="card-text"><small class="text-muted">created
-                                        at {{ album.createdAt|date('d/m/Y - h:m:s') }}</small></p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        created at {{ album.createdAt|date('d/m/Y - h:m:s') }}
+                                    </small>
+                                </p>
                             </div>
                         </a>
                     </div>

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Album;
 use App\Entity\Gif;
+use App\Repository\AlbumRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,6 +15,9 @@ class GifAddForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $user = $options['user'];
+
         $builder
             ->add('url', null, [
                 'attr' => [
@@ -29,6 +33,10 @@ class GifAddForm extends AbstractType
             ])
             ->add('album', EntityType::class, [
                 'class' => Album::class,
+//                'query_builder' => function (AlbumRepository $er) use ($user) {
+//                    return $er->createQueryBuilder('u')
+//                        ->where('author', $user);
+//                },
                 'choice_label' => 'title',
                 'attr' => [
                     'class' => 'input100',
@@ -60,6 +68,7 @@ class GifAddForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Gif::class,
+            'user' => User::class,
         ]);
     }
 }

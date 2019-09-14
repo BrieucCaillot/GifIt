@@ -25,9 +25,9 @@ class Album
     private $title;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="album")
      */
-    private $user_id;
+    private $author;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Gif", mappedBy="album")
@@ -51,14 +51,14 @@ class Album
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getAuthor(): ?User
     {
-        return $this->user_id;
+        return $this->author;
     }
 
-    public function setUserId(int $user_id): self
+    public function setAuthor(?User $author): self
     {
-        $this->user_id = $user_id;
+        $this->author = $author;
 
         return $this;
     }
