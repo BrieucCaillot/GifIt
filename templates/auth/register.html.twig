@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block container_class %}{% endblock %}
+
+{% block body %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                {{ form_start(registrationForm, {'attr': {'class': 'login100-form'} }) }}
+                <span class="login100-form-title mb-4">
+                    Register ⚡️
+                </span>
+                <div class="wrap-input100 rs1 validate-input">
+                    {{ form_errors(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email) }}
+                    {{ form_label(registrationForm.email) }}
+                </div>
+                <div class="wrap-input100 rs2 validate-input">
+                    {{ form_errors(registrationForm.username) }}
+                    {{ form_widget(registrationForm.username) }}
+                    {{ form_label(registrationForm.username) }}
+                </div>
+                <div class="wrap-input100 validate-input" style="width: 100%;">
+                    {{ form_errors(registrationForm.plainPassword) }}
+                    {{ form_widget(registrationForm.plainPassword) }}
+                    {{ form_label(registrationForm.plainPassword) }}
+                </div>
+                <div class="container-login100-form-btn">
+                    {{ form_widget(registrationForm.submit,{'attr':{class:"login100-form-btn"}}) }}
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

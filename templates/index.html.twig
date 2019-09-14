@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+
+        {% if latest_albums|length > 0 %}
+            <div class="row">
+                <div class="col text-center">
+                    <h1 class="text-white mt-4 mb-4">Latest albums</h1>
+                </div>
+            </div>
+            <div class="card-deck">
+                {% for album in latest_albums %}
+                    <div class="col-sm-4">
+                        <a href="{{ path('app_album_show', {'album': album.id}) }}"
+                           class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ album.title }}</h5>
+                                <p class="card-text">{{ album.gifs|length }} GIFS</p>
+                                <p class="card-text"><small class="text-muted">created {{ album.createdAt|date('d/m/Y - h:m:s') }}</small></p>
+                                <p class="card-text"><small class="text-muted">author </small></p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock body %}

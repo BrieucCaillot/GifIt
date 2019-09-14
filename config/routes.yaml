@@ -1,0 +1,41 @@
+index:
+    path: /
+    controller: App\Controller\MainController::index
+
+app_user_index:
+    path: /user/{user}
+    controller: App\Controller\UserController::index
+
+app_album_show:
+    path: /album/{album}/gifs
+    controller: App\Controller\AlbumController::show
+    requirements:
+        album: '\d+'
+
+app_album_update:
+    path: /album/{album}/edit
+    controller: App\Controller\AlbumController::update
+    requirements:
+        album: '\d+'
+
+app_album_create:
+    path: /album/create
+    controller: App\Controller\AlbumController::create
+
+app_album_gif_add:
+    path: /album/{album}/gif/add
+    controller: App\Controller\GifController::create
+    requirements:
+        album: '\d+'
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout

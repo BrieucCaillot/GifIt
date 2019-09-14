@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ album.title }}{% endblock %}
+
+{% block stylesheet %}
+    <style>
+        img {
+            max-width: 350px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-4">
+            <div class="col">
+                <h1 class="text-white">{{ album.title }}</h1>
+            </div>
+            {% if app.user %}
+                {% if app.user.id == album.userId %}
+                    <div class="col text-right">
+                        <a href="{{ path('app_album_gif_add', {'album': album.id}) }}"
+                           class="btn btn-primary">Add
+                            GIF</a>
+                        <a href="{{ path('app_album_update', {'album': album.id}) }}"
+                           class="btn btn-info">Edit</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="row">
+            {% for gif in gifs %}
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <img src="{{ gif.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {% set tags = gif.tags|split(';') %}
+                            {% for tag in tags %}
+                                <span class="badge badge-primary">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

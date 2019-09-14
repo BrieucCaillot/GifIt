@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create an album{% endblock %}
+
+{% block body %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                {{ form_start(albumUpdateForm, {'attr': {'class': 'login100-form'} }) }}
+                <span class="login100-form-title mb-4">
+                    Update album ⚡️
+                </span>
+                <div class="wrap-input100 validate-input" style="width: 100%;">
+                    {{ form_errors(albumUpdateForm.title) }}
+                    {{ form_widget(albumUpdateForm.title) }}
+                    {{ form_label(albumUpdateForm.title) }}
+                </div>
+                <div class="container-login100-form-btn">
+                    {{ form_widget(albumUpdateForm.submit,{'attr':{class:"login100-form-btn"}}) }}
+                </div>
+                {{ form_end(albumUpdateForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

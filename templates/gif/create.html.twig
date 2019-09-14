@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create an album{% endblock %}
+
+{% block body %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                {{ form_start(form, {'attr': {'class': 'login100-form'} }) }}
+                <span class="login100-form-title mb-4">
+                    Add a GIF ⚡️
+                </span>
+                <div class="wrap-input100 validate-input" style="width: 100%;">
+                    {{ form_errors(form.url) }}
+                    {{ form_widget(form.url) }}
+                    {{ form_label(form.url) }}
+                </div>
+                <div class="wrap-input100 validate-input" style="width: 100%;">
+                    {{ form_errors(form.tags) }}
+                    {{ form_widget(form.tags) }}
+                    {{ form_label(form.tags) }}
+                </div>
+                <div class="wrap-input100 validate-input" style="width: 100%; padding: 0 25px;">
+                    {{ form_widget(form.album) }}</p>
+                </div>
+                <div class="container-login100-form-btn">
+                    {{ form_widget(form.submit,{'attr':{class:"login100-form-btn"}}) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
