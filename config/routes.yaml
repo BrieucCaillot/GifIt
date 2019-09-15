@@ -28,11 +28,23 @@ app_album_create:
     path: /album/create
     controller: App\Controller\AlbumController::create
 
-app_album_gif_add:
-    path: /album/{album}/gif/add
-    controller: App\Controller\GifController::create
+app_album_gif_delete:
+    path: /album/{album}/gif/{gif}/delete
+    controller: App\Controller\GifController::delete
     requirements:
         album: '\d+'
+        gif: '\d+'
+
+app_album_gif_favorite:
+    path: /album/{album}/gif/{gif}/favorite
+    controller: App\Controller\GifController::favorite
+    requirements:
+        album: '\d+'
+        gif: '\d+'
+
+app_gif_add:
+    path: /gif/add
+    controller: App\Controller\GifController::create
 
 app_register:
     path: /register

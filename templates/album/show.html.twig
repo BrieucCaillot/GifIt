@@ -5,34 +5,52 @@
 {% block stylesheet %}
     <style>
         img {
-            max-width: 350px;
+            height: auto;
+            width: 100%;
         }
     </style>
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <div class="row mt-4 mb-4">
+        <div class="row align-items-center mt-4 mb-4">
             <div class="col">
                 <h1 class="text-white">{{ album.title }}</h1>
             </div>
             {% if app.user %}
-                {% if app.user.id == album.author.id %}
-                    <div class="col text-right">
-                        <a href="{{ path('app_album_gif_add', {'album': album.id}) }}"
-                           class="btn btn-primary">Add
-                            GIF ➕</a>
+                <div class="col text-right">
+                    {% if app.user.id == album.author.id %}
                         <a href="{{ path('app_album_update', {'album': album.id}) }}"
                            class="btn btn-info">Edit ✎</a>
                         <a href="{{ path('app_album_delete', {'album': album.id}) }}"
                            class="btn btn-danger">Delete ❌</a>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
-        <div class="row">
+        <div class="row align-items-center">
             {% for gif in gifs %}
-                <div class="col">
+                <div class="col col-3">
+                    <div class="row align-items-center mb-1">
+                        <div class="col">
+                            {% if gif.favorites.count > 0 %}
+                                <span class="text-white pr-2">{{ gif.favorites.count }}</span>
+                                {% for fav in gif.favorites %}
+                                    {% if fav.user.id == app.user.id %}
+                                        {% if fav.active == true %}
+                                            <a class="btn btn-sm btn-danger"
+                                               href="{{ path('app_album_gif_favorite', {'gif': gif.id, 'album': album.id}) }}">Unfav</a>
+                                        {% else %}
+                                            <a class="btn btn-sm btn-info"
+                                               href="{{ path('app_album_gif_favorite', {'gif': gif.id, 'album': album.id}) }}">Fav</a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <a class="btn btn-sm btn-danger"
+                               href="{{ path('app_album_gif_delete', {'gif': gif.id, 'album': album.id}) }}">Delete</a>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <img src="{{ gif.url }}" alt="">
