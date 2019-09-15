@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class GifAddForm extends AbstractType
 {
@@ -24,11 +26,19 @@ class GifAddForm extends AbstractType
                     'class' => 'input100',
                     'required' => true,
                     'autofocus' => true,
-                    'data-kwimpalastatus' => 'alive',
-                    'data-kwimpalaid' => '1568393576290-3'
                 ],
                 'label_attr' => [
                     'class' => 'label-input100',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please write the url with .gif ;',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your url should be at least {{ limit }} characters and end with .gif',
+                        'max' => 20,
+                    ]),
                 ],
             ])
             ->add('album', EntityType::class, [
@@ -42,24 +52,30 @@ class GifAddForm extends AbstractType
                     'class' => 'input100',
                     'required' => true,
                     'autofocus' => true,
-                    'data-kwimpalastatus' => 'alive',
-                    'data-kwimpalaid' => '1568393576290-3'
                 ],
                 'label_attr' => [
                     'class' => 'label-input100',
-                ],
+                ]
             ])
             ->add('tags', null, [
                 'attr' => [
                     'class' => 'input100',
                     'required' => true,
                     'autofocus' => true,
-                    'data-kwimpalastatus' => 'alive',
-                    'data-kwimpalaid' => '1568393576290-3'
                 ],
                 'label_attr' => [
                     'class' => 'label-input100',
-                ]
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please write tags seperated with ;',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Your tag should be at least {{ limit }} characters',
+                        'max' => 20,
+                    ]),
+                ],
             ])
         ->add('submit', SubmitType::class);
     }

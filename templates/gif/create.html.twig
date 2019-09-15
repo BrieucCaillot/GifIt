@@ -10,13 +10,15 @@
                 <span class="login100-form-title mb-4">
                     Add a GIF ⚡️
                 </span>
-                <div class="wrap-input100 validate-input" style="width: 100%;">
+                <div class="alert alert-primary" role="alert">
                     {{ form_errors(form.url) }}
+                    {{ form_errors(form.tags) }}
+                </div>
+                <div class="wrap-input100 validate-input" style="width: 100%;">
                     {{ form_widget(form.url) }}
                     {{ form_label(form.url) }}
                 </div>
                 <div class="wrap-input100 validate-input" style="width: 100%;">
-                    {{ form_errors(form.tags) }}
                     {{ form_widget(form.tags) }}
                     {{ form_label(form.tags) }}
                 </div>

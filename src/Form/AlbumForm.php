@@ -18,8 +18,6 @@ class AlbumForm extends AbstractType
                     'class' => 'input100',
                     'required' => true,
                     'autofocus' => true,
-                    'data-kwimpalastatus' => 'alive',
-                    'data-kwimpalaid' => '1568393576290-3'
                 ],
                 'label_attr' => [
                     'class' => 'label-input100',

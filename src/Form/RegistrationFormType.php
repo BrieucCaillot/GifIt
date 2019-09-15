@@ -19,8 +19,6 @@ class RegistrationFormType extends AbstractType
             ->add('email', null, [
                 'attr' => [
                     'class' => 'input100',
-                    'data-kwimpalastatus' => 'alive',
-                    'data-kwimpalaid' => '1568393576290-3'
                 ],
                 'label_attr' => [
                     'class' => 'label-input100',
@@ -51,7 +49,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 3,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,

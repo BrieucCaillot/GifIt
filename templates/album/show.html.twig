@@ -32,9 +32,9 @@
             {% for gif in gifs %}
                 <div class="col col-3">
                     <div class="row align-items-center mb-1">
-                        <div class="col">
+                        <div class="col text-right">
                             {% if gif.favorites.count > 0 %}
-                                <span class="text-white pr-2">{{ gif.favorites.count }}</span>
+                                <span class="text-white pr-2">{{ gif.favorites.count }} Favs</span>
                                 {% for fav in gif.favorites %}
                                     {% if fav.user.id == app.user.id %}
                                         {% if fav.active == true %}
