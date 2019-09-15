@@ -2,15 +2,6 @@
 
 {% block title %}{{ album.title }}{% endblock %}
 
-{% block stylesheet %}
-    <style>
-        img {
-            height: auto;
-            width: 100%;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     <div class="container">
         <div class="row align-items-center mt-4 mb-4">
@@ -28,27 +19,20 @@
                 </div>
             {% endif %}
         </div>
-        <div class="row align-items-center">
+        <div class="row align-items-end">
             {% for gif in gifs %}
                 <div class="col col-3">
                     <div class="row align-items-center mb-1">
                         <div class="col text-right">
-                            {% if gif.favorites.count > 0 %}
-                                <span class="text-white pr-2">{{ gif.favorites.count }} Favs</span>
-                                {% for fav in gif.favorites %}
-                                    {% if fav.user.id == app.user.id %}
-                                        {% if fav.active == true %}
-                                            <a class="btn btn-sm btn-danger"
-                                               href="{{ path('app_album_gif_favorite', {'gif': gif.id, 'album': album.id}) }}">Unfav</a>
-                                        {% else %}
-                                            <a class="btn btn-sm btn-info"
-                                               href="{{ path('app_album_gif_favorite', {'gif': gif.id, 'album': album.id}) }}">Fav</a>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
+                            <span class="text-white pr-2">{{ gif.favorites.count }} Favs</span>
+                            
+                            <a class="btn btn-sm btn-info"
+                               href="{{ path('app_album_gif_favorite', {'gif': gif.id, 'album': album.id}) }}">Fav</a>
+
+                            {% if app.user == gif.album.author %}
+                                <a class="btn btn-sm btn-danger"
+                                   href="{{ path('app_album_gif_delete', {'gif': gif.id, 'album': album.id}) }}">Delete</a>
                             {% endif %}
-                            <a class="btn btn-sm btn-danger"
-                               href="{{ path('app_album_gif_delete', {'gif': gif.id, 'album': album.id}) }}">Delete</a>
                         </div>
                     </div>
                     <div class="row">

@@ -35,7 +35,7 @@ class Gif
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Favorite", mappedBy="gif")
+     * @ORM\OneToMany(targetEntity="App\Entity\Favorite", mappedBy="gif", cascade={"remove", "persist"})
      */
     private $favorites;
 

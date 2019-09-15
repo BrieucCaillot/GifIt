@@ -6,7 +6,7 @@
         {% if latest_albums|length > 0 %}
             <div class="row">
                 <div class="col text-center">
-                    <h1 class="text-white mt-4 mb-4">Latest albums</h1>
+                    <h1 class="text-white mt-4 mb-5">Latest albums</h1>
                 </div>
             </div>
             <div class="card-deck">
@@ -36,5 +36,41 @@
                 {% endfor %}
             </div>
         {% endif %}
+
+        {% if lastest_gifs|length > 0 %}
+            <div class="row">
+                <div class="col text-center">
+                    <h1 class="text-white mt-4 mb-5">Latest Gifs</h1>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                {% for gif in lastest_gifs %}
+                    <div class="col col-3 mb-5">
+                        <div class="row text-right mb-2">
+                            <div class="col">
+                                <span class="text-white pr-2">{{ gif.favorites.count }} Favs</span>
+
+                                <a class="btn btn-sm btn-info"
+                                   href="{{ path('app_album_gif_favorite', {'gif': gif.id, 'album': gif.album.id}) }}">Fav</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <img src="{{ gif.url }}" alt="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {% set tags = gif.tags|split(';') %}
+                                {% for tag in tags %}
+                                    <span class="badge badge-primary">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
     </div>
 {% endblock body %}

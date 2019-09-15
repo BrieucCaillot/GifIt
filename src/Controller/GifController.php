@@ -40,7 +40,7 @@ class GifController extends AbstractController
         ]);
     }
 
-    public function delete(Gif $gif, EntityManagerInterface $entityManager, Request $request): Response
+    public function delete(Gif $gif,EntityManagerInterface $entityManager, FavoriteRepository $favoriteRepository, Request $request): Response
     {
 
         if (!$this->getUser()) {
@@ -48,13 +48,20 @@ class GifController extends AbstractController
         }
 
         $gif_id = $request->attributes->get('gif');
-        $album_id = $request->attributes->get('album');
+
+//        $favorites = $favoriteRepository->findBy([
+//            'gif' => $gif_id
+//        ], ['id' => "DESC"], 10);
+//
+//        $entityManager->remove($favorites);
 
         $entityManager->find(Gif::class, $gif_id);
         $entityManager->remove($gif);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_album_show', ['album' => $album_id]);
+        $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+
+        return $this->redirect($referer);
     }
 
     public function favorite(FavoriteRepository $favoriteRepository, EntityManagerInterface $entityManager, Request $request)
@@ -65,30 +72,28 @@ class GifController extends AbstractController
         }
 
         $gif_id = $request->attributes->get('gif');
-        $album_id = $request->attributes->get('album');
 
         $fav_exists = $favoriteRepository->findBy([
             'user' => $this->getUser()->getId(),
             'gif' => $gif_id
         ]);
 
-
         if (empty($fav_exists)) {
             $gif = $entityManager->find(Gif::class, $gif_id);
-
             $favorite = new Favorite();
             $favorite->setUser($this->getUser());
             $favorite->setGif($gif);
-            $favorite->setActive(true);
 
             $entityManager->persist($favorite);
-        } else if ($fav_exists[0]->getActive() == false) {
-            $fav_exists[0]->setActive(true);
         } else {
-            $fav_exists[0]->setActive(false);
+            $fav = $entityManager->find(Favorite::class, $fav_exists[0]);
+            $entityManager->remove($fav);
         }
+
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_album_show', ['album' => $album_id]);
+        $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+
+        return $this->redirect($referer);
     }
 }

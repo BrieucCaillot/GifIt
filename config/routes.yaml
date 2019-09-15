@@ -5,6 +5,8 @@ index:
 app_user_index:
     path: /user/{user}
     controller: App\Controller\UserController::index
+    requirements:
+        user: '\d+'
 
 app_album_show:
     path: /album/{album}/gifs
@@ -40,6 +42,13 @@ app_album_gif_favorite:
     controller: App\Controller\GifController::favorite
     requirements:
         album: '\d+'
+        gif: '\d+'
+
+app_index_gif_favorite:
+    path: /user/{user}/gif/{gif}/favorite
+    controller: App\Controller\GifController::favorite
+    requirements:
+        user: '\d+'
         gif: '\d+'
 
 app_gif_add:

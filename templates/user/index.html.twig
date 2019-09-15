@@ -5,28 +5,62 @@
         <div class="row">
             <div class="col text-center">
                 {% if app.user.id == user.id %}
-                    <h1 class="text-white mt-4 mb-4">My albums</h1>
+                    <h1 class="text-white mt-4 mb-5">My albums</h1>
                 {% else %}
-                    <h1 class="text-white mt-4 mb-4">{{ user.username }}'s albums</h1>
+                    <h1 class="text-white mt-4 mb-5">{{ user.username }}'s albums</h1>
                 {% endif %}
             </div>
         </div>
         {% if user.albums|length > 0 %}
             <div class="card-deck">
                 {% for album in user.albums %}
-                    <div class="col-sm-4">
-                        <a href="{{ path('app_album_show', {'album': album.id}) }}"
-                           class="card">
+                    <div class="col-sm-4 mb-4">
+                        <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">{{ album.title }}</h5>
-                                <p class="card-text">gif length</p>
+                                <a class="h5 card-title text-primary"
+                                   href="{{ path('app_album_show', {'album': album.id}) }}">
+                                    {{ album.title }}
+                                </a>
+                                <p class="card-text mt-2 mb-2">{{ album.gifs|length }} GIFS</p>
                                 <p class="card-text">
-                                    <small class="text-muted">
-                                        created at {{ album.createdAt|date('d/m/Y - h:m:s') }}
-                                    </small>
+                                    <small class="text-muted">created {{ album.createdAt|date('d/m/Y - h:m:s') }}</small>
                                 </p>
                             </div>
-                        </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if user.favorites|length > 0 %}
+            <div class="row">
+                <div class="col text-center">
+                    <h1 class="text-white mt-4 mb-5">My Favorites Gifs</h1>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                {% for favorite in user.favorites %}
+                    <div class="col col-3 mb-5">
+                        <div class="row text-right mb-2">
+                            <div class="col">
+                                <span class="text-white pr-2">{{ favorite.gif.favorites.count }} Favs</span>
+                                <a class="btn btn-sm btn-info"
+                                   href="{{ path('app_index_gif_favorite', {'gif': favorite.gif.id, 'user': user.id}) }}">Fav</a>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <img src="{{ favorite.gif.url }}" alt="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {% set tags = favorite.gif.tags|split(';') %}
+                                {% for tag in tags %}
+                                    <span class="badge badge-primary">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>

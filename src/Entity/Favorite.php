@@ -28,11 +28,6 @@ class Favorite
      */
     private $gif;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $active;
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -53,18 +48,6 @@ class Favorite
     public function setGif(?Gif $gif): self
     {
         $this->gif = $gif;
-
-        return $this;
-    }
-
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    public function setActive($active): self
-    {
-        $this->active = $active;
 
         return $this;
     }

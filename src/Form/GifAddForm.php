@@ -37,7 +37,7 @@ class GifAddForm extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your url should be at least {{ limit }} characters and end with .gif',
-                        'max' => 20,
+                        'max' => 100,
                     ]),
                 ],
             ])
